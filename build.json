@@ -1,0 +1,7 @@
+{
+   "id" : "code_editor",
+   "version" : "1.0",
+   "description" : "Edit modules und template files",
+   "categories" : ["development", "code", "editor", "ide"],
+   "compatible_from" : "2017.1"
+}
