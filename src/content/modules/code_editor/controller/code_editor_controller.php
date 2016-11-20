@@ -1,5 +1,24 @@
 <?php
 class CodeEditorController {
+	public function getMimeTypeForExtension($ext) {
+		$mime = null;
+		switch ($mime) {
+			case "php" :
+			case "html" :
+				$mime = "application/x-httpd-php";
+				break;
+				break;
+			case "css" :
+				$mime = "text/css";
+				break;
+			case "js" :
+			case "json" :
+				$mime = "text/javascript";
+				break;
+				break;
+		}
+		return $mime;
+	}
 	public function getAllEditableFiles() {
 		$contentFolder = Path::resolve ( "ULICMS_ROOT/content" );
 		$files = find_all_files ( $contentFolder );
@@ -13,7 +32,7 @@ class CodeEditorController {
 		$editableFiles = array ();
 		foreach ( $files as $file ) {
 			$ext = file_extension ( $file );
-			if (in_array ( $ext, $editableFileTypes )) {
+			if (in_array ( $ext, $editableFileTypes ) and is_writable ( $file )) {
 				$file = substr ( $file, strlen ( ULICMS_ROOT ) );
 				$editableFiles [] = $file;
 			}
