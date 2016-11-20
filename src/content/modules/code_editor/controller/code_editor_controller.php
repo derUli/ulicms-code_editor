@@ -1,8 +1,12 @@
 <?php
 class CodeEditorController {
+	public function getMimeTypeForFile($file) {
+		$ext = file_extension ( $file );
+		return $this->getMimeTypeForExtension ( $ext );
+	}
 	public function getMimeTypeForExtension($ext) {
 		$mime = null;
-		switch ($mime) {
+		switch ($ext) {
 			case "php" :
 			case "html" :
 				$mime = "application/x-httpd-php";
