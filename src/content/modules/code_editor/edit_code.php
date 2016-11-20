@@ -18,7 +18,7 @@ if ($acl->hasPermission ( "code_editor" ) and in_array ( $file, $_SESSION ["edit
 	method="post" id="code-form">
 <?php csrf_token_html();?>
 <p>
-		<textarea id="data" name="data" cols=20 rows=80><?php Template::escape($data)?></textarea>
+		<textarea id="data" name="data" cols="20" rows="80"><?php Template::escape($data);?></textarea>
 	</p>
 	<p>
 		<input type="submit" value="<?php translate("save_changes");?>">
@@ -28,9 +28,6 @@ if ($acl->hasPermission ( "code_editor" ) and in_array ( $file, $_SESSION ["edit
 		<div id="msg_code_edit" class="inPageMessage"></div>
 		<img class="loading" src="gfx/loading.gif" alt="Wird gespeichert...">
 	</div>
-
-
-
 </form>
 <script type="text/javascript">
 $(document).ready(function(){
