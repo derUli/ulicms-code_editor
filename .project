@@ -31,4 +31,11 @@
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>ulicms</name>
+			<type>2</type>
+			<location>C:/Users/ulrich1992/Documents/GitHub/ulicms/ulicms</location>
+		</link>
+	</linkedResources>
 </projectDescription>
