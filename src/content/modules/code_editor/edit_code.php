@@ -9,7 +9,9 @@ if ($acl->hasPermission ( "code_editor" ) and in_array ( $file, $_SESSION ["edit
 	}
 	$data = file_get_contents ( $absPath );
 	?>
-<h1><?php Template::escape($file);?></h1>
+<p>
+	<strong><?php Template::escape($file);?></strong>
+</p>
 <?php if($data){?>
 <form
 	action="index.php?action=edit_code&file=<?php Template::escape($file);?>&save"
