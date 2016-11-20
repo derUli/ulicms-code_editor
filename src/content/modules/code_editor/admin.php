@@ -12,6 +12,7 @@ function code_editor_admin() {
 			<th>
 <?php translate("file");?>
 </th>
+			<th><?php translate("type")?></th>
 			<th>
 <?php translate("last_changed");?>
 </th>
@@ -30,6 +31,7 @@ function code_editor_admin() {
 			<td style="word-break: break-all;"><a
 				href="index.php?action=edit_code&file=<?php Template::escape($file);?>">
 				<?php Template::escape($file);?></a></td>
+			<td><?php echo file_extension($file);?></td>
 			<td><?php
 		echo strftime ( "%x %X", filemtime ( $absPath ) );
 		?></td>
