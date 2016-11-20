@@ -13,16 +13,25 @@ if ($acl->hasPermission ( "code_editor" ) and in_array ( $file, $_SESSION ["edit
 <?php if($data){?>
 <form
 	action="index.php?action=edit_code&file=<?php Template::escape($file);?>&save"
-	method="post">
+	method="post" id="code-form">
 <?php csrf_token_html();?>
 <p>
 		<textarea id="data" name="data" cols=20 rows=80><?php Template::escape($data)?></textarea>
 	</p>
 	<p>
 		<input type="submit" value="<?php translate("save_changes");?>">
-	</p>
+	
+	
+	<div class="inPageMessage">
+		<div id="msg_code_edit" class="inPageMessage"></div>
+		<img class="loading" src="gfx/loading.gif" alt="Wird gespeichert...">
+	</div>
+
+
+
 </form>
 <script type="text/javascript">
+$(document).ready(function(){
 var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("data"),
 
 		{lineNumbers: true,
@@ -33,6 +42,27 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("data"),
 		        indentWithTabs: false,
 		        enterMode: "keep",
 		        tabMode: "shift"});
+
+$("#code-form").ajaxForm({beforeSubmit: function(e){
+	  $("#msg_code_edit").html("");
+	  $("#msg_code_edit").hide();
+	  $(".loading").show();
+	  }, beforeSerialize:function($Form, options){
+	        /* Before serialize */
+	        for ( instance in CKEDITOR.instances ) {
+	            CKEDITOR.instances[instance].updateElement();
+	        }
+	        return true;
+	    },
+	  success:function(e){
+	  $(".loading").hide();
+	  $("#msg_code_edit").html("<span style=\"color:green;\"><?php translate("x_saved");?></span>");
+	  $("#msg_code_edit").show();
+	  }
+
+	});
+	
+});
         </script>
 <?php }?>
 <?php
