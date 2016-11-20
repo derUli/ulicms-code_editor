@@ -1,5 +1,4 @@
 <?php
-include_once ULICMS_ROOT . "/classes/objects/path.php";
 class CodeEditorController {
 	public function getAllEditableFiles() {
 		$contentFolder = Path::resolve ( "ULICMS_ROOT/content" );
