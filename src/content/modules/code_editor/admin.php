@@ -14,7 +14,7 @@ function code_editor_admin() {
 </th>
 			<th><?php translate("type")?></th>
 			<th>
-<?php translate("last_changed");?>
+<?php translate("x_last_changed");?>
 </th>
 			<th>
 <?php translate("size");?>
