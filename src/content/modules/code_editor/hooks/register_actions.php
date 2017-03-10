@@ -1,5 +1,5 @@
 <?php
-include_once ULICMS_ROOT . "/classes/objects/path.php";
+include_once ULICMS_ROOT . "/classes/objects/files/path.php";
 include_once ULICMS_ROOT . "/lib/formatter.php";
 include_once getModulePath ( "code_editor" ) . "controller/code_editor_controller.php";
 
