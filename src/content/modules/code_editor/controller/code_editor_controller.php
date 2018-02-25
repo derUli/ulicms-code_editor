@@ -24,7 +24,7 @@ class CodeEditorController {
 		return $mime;
 	}
 	public function getAllEditableFiles() {
-		$contentFolder = Path::resolve ( "ULICMS_ROOT/content" );
+		$contentFolder = Path::resolve ( "ULICMS_DATA_STORAGE_ROOT/content" );
 		$files = find_all_files ( $contentFolder );
 		$editableFileTypes = array (
 				"php",
@@ -37,7 +37,7 @@ class CodeEditorController {
 		foreach ( $files as $file ) {
 			$ext = file_extension ( $file );
 			if (in_array ( $ext, $editableFileTypes ) and is_writable ( $file )) {
-				$file = substr ( $file, strlen ( ULICMS_ROOT ) );
+			    $file = substr ( $file, strlen ( ULICMS_DATA_STORAGE_ROOT ) );
 				$editableFiles [] = $file;
 			}
 		}

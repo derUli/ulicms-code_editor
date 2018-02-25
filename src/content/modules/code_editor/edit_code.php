@@ -1,14 +1,14 @@
 <?php
-$file = $_REQUEST ["file"];
-$acl = new ACL ();
-$controller = new CodeEditorController ();
-if ($acl->hasPermission ( "code_editor" ) and in_array ( $file, $_SESSION ["editable_code_files"] )) {
-	$absPath = ULICMS_ROOT . $file;
-	if (isset ( $_REQUEST ["save"] ) and isset ( $_POST ["data"] )) {
-		file_put_contents ( $absPath, $_POST ["data"] );
-	}
-	$data = file_get_contents ( $absPath );
-	?>
+$file = $_REQUEST["file"];
+$acl = new ACL();
+$controller = new CodeEditorController();
+if ($acl->hasPermission("code_editor") and in_array($file, $_SESSION["editable_code_files"])) {
+    $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
+    if (isset($_REQUEST["save"]) and isset($_POST["data"])) {
+        file_put_contents($absPath, $_POST["data"]);
+    }
+    $data = file_get_contents($absPath);
+    ?>
 <p>
 	<strong><?php Template::escape($file);?></strong>
 </p>
@@ -66,5 +66,5 @@ $("#code-form").ajaxForm({beforeSubmit: function(e){
 <?php }?>
 <?php
 } else {
-	noperms ();
+    noperms();
 }

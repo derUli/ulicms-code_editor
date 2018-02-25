@@ -1,11 +1,13 @@
 <?php
-define ( "MODULE_ADMIN_HEADLINE", get_translation ( "code_editor" ) );
-define ( "MODULE_ADMIN_REQUIRED_PERMISSION", "code_editor" );
-function code_editor_admin() {
-	$controller = new CodeEditorController ();
-	$files = $controller->getAllEditableFiles ();
-	$_SESSION ["editable_code_files"] = $files;
-	?>
+define("MODULE_ADMIN_HEADLINE", get_translation("code_editor"));
+define("MODULE_ADMIN_REQUIRED_PERMISSION", "code_editor");
+
+function code_editor_admin()
+{
+    $controller = new CodeEditorController();
+    $files = $controller->getAllEditableFiles();
+    $_SESSION["editable_code_files"] = $files;
+    ?>
 <table class="tablesorter">
 	<thead>
 		<tr>
@@ -23,18 +25,18 @@ function code_editor_admin() {
 	</thead>
 	<tbody>
 <?php
-	
-	foreach ( $files as $file ) {
-		$absPath = ULICMS_ROOT . $file;
-		?>
+    
+    foreach ($files as $file) {
+        $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
+        ?>
 <tr>
 			<td style="word-break: break-all;"><a
 				href="index.php?action=edit_code&file=<?php Template::escape($file);?>">
 				<?php Template::escape($file);?></a></td>
 			<td><?php echo file_extension($file);?></td>
 			<td><?php
-		echo strftime ( "%x %X", filemtime ( $absPath ) );
-		?></td>
+        echo strftime("%x %X", filemtime($absPath));
+        ?></td>
 			<td style="text-align: right;"><?php echo round(filesize($absPath) / 1024, 2);?> KB</td>
 
 		</tr>
