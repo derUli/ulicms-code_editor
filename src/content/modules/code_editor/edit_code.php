@@ -21,7 +21,8 @@ if ($acl->hasPermission("code_editor") and in_array($file, $_SESSION["editable_c
 		<textarea id="data" name="data" cols="20" rows="80"><?php Template::escape($data);?></textarea>
 	</p>
 	<p>
-		<input type="submit" value="<?php translate("save_changes");?>">
+		<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php translate("save_changes");?></button>
+		</p>
 	
 	
 	<div class="inPageMessage">
@@ -54,9 +55,9 @@ $("#code-form").ajaxForm({beforeSubmit: function(e){
 	        return true;
 	    },
 	  success:function(e){
-	  $(".loading").hide();
-	  $("#msg_code_edit").html("<span style=\"color:green;\"><?php translate("x_saved");?></span>");
-	  $("#msg_code_edit").show();
+		  $(".loading").hide();
+		  $("#msg_code_edit").html("<span style=\"color:green;\"><?php translate("x_saved");?></span>");
+		  $("#msg_code_edit").show();
 	  }
 
 	});
