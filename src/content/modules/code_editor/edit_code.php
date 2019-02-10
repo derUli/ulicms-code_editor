@@ -9,6 +9,7 @@ if ($acl->hasPermission("code_editor") and in_array($file, $_SESSION["editable_c
     }
     $data = file_get_contents($absPath);
     ?>
+	<p><a href="<?php echo ModuleHelper::buildAdminUrl("code_editor");?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php translate("back");?></a></p>
 <p>
 	<strong><?php Template::escape($file);?></strong>
 </p>
