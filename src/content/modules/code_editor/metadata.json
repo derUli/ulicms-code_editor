@@ -1,9 +1,22 @@
 {
-	"source": "extend",
-	"version": "1.5",
-	"embed": false,
-	"custom_acl": [
-		"code_editor"
-	],
-	"admin_permission": "code_editor"
+    "source": "extend",
+    "version": "1.6",
+    "embed": false,
+    "custom_acl": [
+        "code_editor"
+    ],
+    "actions": {
+        "edit_code": "edit_code.php"
+    },
+    "admin_permission": "code_editor",
+    "action_permissions": {
+        "edit_code": "code_editor"
+    },
+    "controllers": {
+        "CodeEditorController": "controller/code_editor_controller.php"
+    },
+    "main_class": "CodeEditorController",
+    "controller_function_permissions": {
+        "CodeEditorController::*": "code_editor"
+    }
 }

@@ -1,72 +1,48 @@
 <?php
 $file = $_REQUEST["file"];
-$acl = new ACL();
 $controller = new CodeEditorController();
-if ($acl->hasPermission("code_editor") and in_array($file, $_SESSION["editable_code_files"])) {
+if (in_array($file, $_SESSION["editable_code_files"])) {
     $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
+    // TODO: move this to CodeEditorController
     if (isset($_REQUEST["save"]) and isset($_POST["data"])) {
         file_put_contents($absPath, $_POST["data"]);
+        if (Request::isAjaxRequest()) {
+            exit();
+        }
     }
     $data = file_get_contents($absPath);
     ?>
-	<p><a href="<?php echo ModuleHelper::buildAdminUrl("code_editor");?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php translate("back");?></a></p>
-<p>
-	<strong><?php Template::escape($file);?></strong>
-</p>
-<?php if($data){?>
-<form
-	action="index.php?action=edit_code&file=<?php Template::escape($file);?>&save"
-	method="post" id="code-form">
-<?php csrf_token_html();?>
-<p>
-		<textarea id="data" name="data" cols="20" rows="80"><?php Template::escape($data);?></textarea>
-	</p>
-	<p>
-		<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php translate("save_changes");?></button>
-		</p>
-	
-	
-	<div class="inPageMessage">
-		<div id="msg_code_edit" class="inPageMessage"></div>
-		<img class="loading" src="gfx/loading.gif" alt="Wird gespeichert...">
-	</div>
-</form>
-<script type="text/javascript">
-$(document).ready(function(){
-var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("data"),
+    <p><a href="<?php echo ModuleHelper::buildAdminUrl("code_editor"); ?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php translate("back"); ?></a></p>
+    <p>
+        <strong><?php Template::escape($file); ?></strong>
+    </p>
+    <?php if ($data) { ?>
+        <form
+            action="index.php?action=edit_code&file=<?php Template::escape($file); ?>&save"
+            method="post" id="code-form">
+                <?php csrf_token_html(); ?>
+            <p>
+                <textarea id="data" name="data" cols="20" rows="80" class="codemirror" data-mimetype="<?php esc($controller->getMimeTypeForFile($file)); ?>"><?php Template::escape($data); ?></textarea>
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php translate("save_changes"); ?></button>
+            </p>
 
-		{lineNumbers: true,
-		        matchBrackets: true,
-		        mode : "<?php echo $controller->getMimeTypeForFile($file);?>",
 
-		        indentUnit: 0,
-		        indentWithTabs: false,
-		        enterMode: "keep",
-		        tabMode: "shift"});
+            <div class="inPageMessage">
+                <div id="msg_code_edit" class="inPageMessage"></div>
+                <img class="loading" src="gfx/loading.gif" alt="Wird gespeichert...">
+            </div>
+        </form>
+        <?php
+        $translation = new JSTranslation();
+        $translation->addKey("changes_was_saved");
+        $translation->render();
 
-$("#code-form").ajaxForm({beforeSubmit: function(e){
-	  $("#msg_code_edit").html("");
-	  $("#msg_code_edit").hide();
-	  $(".loading").show();
-	  }, beforeSerialize:function($Form, options){
-	        /* Before serialize */
-	        for ( instance in CKEDITOR.instances ) {
-	            CKEDITOR.instances[instance].updateElement();
-	        }
-	        return true;
-	    },
-	  success:function(e){
-		  $(".loading").hide();
-		  $("#msg_code_edit").html("<span style=\"color:green;\"><?php translate("x_saved");?></span>");
-		  $("#msg_code_edit").show();
-	  }
-
-	});
-	
-});
-        </script>
-<?php }?>
-<?php
+        BackendHelper::enqueueEditorScripts();
+        enqueueScriptFile(ModuleHelper::buildRessourcePath("code_editor", "js/main.js"));
+        combinedScriptHtml();
+    }
 } else {
     noperms();
 }
