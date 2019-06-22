@@ -1,5 +1,5 @@
 <?php
-$controller = new CodeEditorController();
+$controller = ControllerRegistry::get(CodeEditorController::class);
 $files = $controller->getAllEditableFiles();
 $_SESSION["editable_code_files"] = $files;
 ?>

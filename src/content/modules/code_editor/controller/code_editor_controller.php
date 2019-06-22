@@ -84,8 +84,8 @@ class CodeEditorController extends MainClass {
         $data = Request::getVar("data");
 
         $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
-        if (in_array($file, $_SESSION["editable_code_files"]) and ! is_null($data)) {
-            file_put_contents($absPath, $_POST["data"]);
+        if ($this->canEditFile($file)) {
+            file_put_contents($absPath, $data);
             Response::sendHttpStatusCodeResultIfAjax(HttpStatusCode::OK,
                     ModuleHelper::buildActionURL("edit_code",
                             "file=" . urlencode($file)));
@@ -96,18 +96,11 @@ class CodeEditorController extends MainClass {
     protected function validateInput() {
         $validator = new Validator;
         $validation = $validator->make($_POST + $_FILES, [
-            'file' => 'required',
-            'data' => 'required'
+            'file' => 'required'
         ]);
         $validation->validate();
 
         $errors = $validation->errors()->all('<li>:message</li>');
-
-
-        // Fix for security issue CVE-2019-11398
-        if (stringContainsHtml($_POST["slug"])) {
-            ExceptionResult(get_translation("no_html_allowed"));
-        }
 
         if ($validation->fails()) {
             $html = '<ul>';

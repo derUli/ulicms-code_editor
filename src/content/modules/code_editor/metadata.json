@@ -15,6 +15,9 @@
     "controllers": {
         "CodeEditorController": "controller/code_editor_controller.php"
     },
+    "action_controllers": {
+        "edit_code": "CodeEditorController"
+    },
     "main_class": "CodeEditorController",
     "controller_function_permissions": {
         "CodeEditorController::*": "code_editor"

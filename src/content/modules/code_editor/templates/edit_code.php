@@ -3,11 +3,11 @@
 use UliCMS\Constants\RequestMethod;
 
 $file = $_REQUEST["file"];
-$controller = new CodeEditorController();
-if (in_array($file, $_SESSION["editable_code_files"])) {
-    $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
+$controller = ControllerRegistry::get();
+$absPath = ULICMS_DATA_STORAGE_ROOT . $file;
+$data = file_get_contents($absPath);
 
-    $data = file_get_contents($absPath);
+if ($controller->canEditFile($file)) {
     ?>
     <p><a href="<?php echo ModuleHelper::buildAdminUrl("code_editor"); ?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php translate("back"); ?></a></p>
     <p>
