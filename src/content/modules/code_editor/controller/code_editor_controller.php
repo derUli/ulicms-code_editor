@@ -1,6 +1,9 @@
 <?php
 
-class CodeEditorController {
+use Rakit\Validation\Validator;
+use function UliCMS\HTML\stringContainsHtml;
+
+class CodeEditorController extends MainClass {
 
     public function getMimeTypeForFile($file) {
         $ext = file_extension($file);
@@ -63,6 +66,57 @@ class CodeEditorController {
     public function isWritable($file) {
         $file = ULICMS_ROOT . "/" . $file;
         return (is_file($file) and is_writable($file));
+    }
+
+    public function settings() {
+        return Template::executeModuleTemplate("code_editor",
+                        "admin.php");
+    }
+
+    public function getSettingsHeadline() {
+        return get_translation("code_editor");
+    }
+
+    public function savePost() {
+        $this->validateInput();
+
+        $file = Request::getVar("file");
+        $data = Request::getVar("data");
+
+        $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
+        if (in_array($file, $_SESSION["editable_code_files"]) and ! is_null($data)) {
+            file_put_contents($absPath, $_POST["data"]);
+            Response::sendHttpStatusCodeResultIfAjax(HttpStatusCode::OK,
+                    ModuleHelper::buildActionURL("edit_code",
+                            "file=" . urlencode($file)));
+        }
+        ExceptionResult(get_translation("forbidden"), HttpStatusCode::FORBIDDEN);
+    }
+
+    protected function validateInput() {
+        $validator = new Validator;
+        $validation = $validator->make($_POST + $_FILES, [
+            'file' => 'required',
+            'data' => 'required'
+        ]);
+        $validation->validate();
+
+        $errors = $validation->errors()->all('<li>:message</li>');
+
+
+        // Fix for security issue CVE-2019-11398
+        if (stringContainsHtml($_POST["slug"])) {
+            ExceptionResult(get_translation("no_html_allowed"));
+        }
+
+        if ($validation->fails()) {
+            $html = '<ul>';
+            foreach ($errors as $error) {
+                $html .= $error;
+            }
+            $html .= '</ul>';
+            ExceptionResult($html, HttpStatusCode::UNPROCESSABLE_ENTITY);
+        }
     }
 
 }

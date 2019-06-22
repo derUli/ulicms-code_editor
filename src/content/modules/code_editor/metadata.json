@@ -6,7 +6,7 @@
         "code_editor"
     ],
     "actions": {
-        "edit_code": "edit_code.php"
+        "edit_code": "templates/edit_code.php"
     },
     "admin_permission": "code_editor",
     "action_permissions": {
