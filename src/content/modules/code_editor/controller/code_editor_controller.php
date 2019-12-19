@@ -25,7 +25,6 @@ class CodeEditorController extends MainClass {
             case "json" :
                 $mime = "text/javascript";
                 break;
-                break;
         }
         return $mime;
     }
