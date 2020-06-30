@@ -33,6 +33,7 @@ class CodeEditorController extends MainClass
     {
         $contentFolder = Path::resolve("ULICMS_DATA_STORAGE_ROOT/content");
         $files = find_all_files($contentFolder);
+
         $editableFileTypes = array(
             "php",
             "css",
@@ -49,6 +50,7 @@ class CodeEditorController extends MainClass
             }
         }
 
+        // Filter out rubbish files
         $editableFiles = array_filter($editableFiles, function ($file) {
             return !startsWith($file, "/content/cache") &&
                     !startsWith($file, "/content/tmp");
