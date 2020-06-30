@@ -15,15 +15,15 @@ if ($controller->canEditFile($file)) {
     </p>
     <?php
     if ($data) {
-        echo ModuleHelper::buildMethodCallForm(CodeEditorController::class,
-                "save",
-                ["file" => $file],
-                RequestMethod::POST,
-                ["id" => "code-form"]);
-        ?>
+        echo ModuleHelper::buildMethodCallForm(
+            CodeEditorController::class,
+            "save",
+            ["file" => $file],
+            RequestMethod::POST,
+            ["id" => "code-form"]
+        ); ?>
         <p>
-            <textarea id="data" name="data" cols="20" rows= "80" class="codemirror" data-mimetype="<?php esc($controller->getMimeTypeForFile($file)); ?>"><?php Template::escape($data);
-        ?></textarea>
+            <textarea id="data" name="data" cols="20" rows= "80" class="codemirror" data-mimetype="<?php esc($controller->getMimeTypeForFile($file)); ?>"><?php Template::escape($data); ?></textarea>
         </p>
         <p>
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php translate("save_changes"); ?></button>

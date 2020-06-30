@@ -1,7 +1,7 @@
 {
     "id": "code_editor",
-    "version": "1.6",
+    "version": "1.7",
     "description": "Edit modules und template files",
     "categories": ["development", "code", "editor", "ide"],
-    "compatible_from": "2019.3.1"
+    "compatible_from": "2020.2.3"
 }

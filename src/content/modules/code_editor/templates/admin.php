@@ -21,19 +21,18 @@ $_SESSION["editable_code_files"] = $files;
     <tbody>
         <?php
         foreach ($files as $file) {
-            $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
-            ?>
+            $absPath = ULICMS_DATA_STORAGE_ROOT . $file; ?>
             <tr>
                 <td style="word-break: break-all;"><a
                         href="index.php?action=edit_code&file=<?php Template::escape($file); ?>">
                         <?php Template::escape($file); ?></a></td>
                 <td><?php echo file_extension($file); ?></td>
                 <td><?php
-                    echo strftime("%x %X", filemtime($absPath));
-                    ?></td>
+                    echo strftime("%x %X", filemtime($absPath)); ?></td>
                 <td style="text-align: right;"><?php echo round(filesize($absPath) / 1024, 2); ?> KB</td>
 
             </tr>
-        <?php } ?>
+        <?php
+        } ?>
     </tbody>
 </table>
