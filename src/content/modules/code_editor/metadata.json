@@ -13,7 +13,7 @@
         "edit_code": "code_editor"
     },
     "controllers": {
-        "CodeEditorController": "controller/code_editor_controller.php"
+        "CodeEditorController": "controller/CodeEditorController.php"
     },
     "action_controllers": {
         "edit_code": "CodeEditorController"

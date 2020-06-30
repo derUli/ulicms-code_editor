@@ -1,6 +1,6 @@
 <?php
 $controller = ControllerRegistry::get(CodeEditorController::class);
-$files = $controller->getAllEditableFiles();
+$files = $controller->_getAllEditableFiles();
 $_SESSION["editable_code_files"] = $files;
 ?>
 <table class="tablesorter">

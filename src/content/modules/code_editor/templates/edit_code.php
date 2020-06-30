@@ -7,7 +7,7 @@ $controller = ControllerRegistry::get();
 $absPath = ULICMS_DATA_STORAGE_ROOT . $file;
 $data = file_get_contents($absPath);
 
-if ($controller->canEditFile($file)) {
+if ($controller->_canEditFile($file)) {
     ?>
     <p><a href="<?php echo ModuleHelper::buildAdminUrl("code_editor"); ?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?php translate("back"); ?></a></p>
     <p>
@@ -23,7 +23,7 @@ if ($controller->canEditFile($file)) {
             ["id" => "code-form"]
         ); ?>
         <p>
-            <textarea id="data" name="data" cols="20" rows= "80" class="codemirror" data-mimetype="<?php esc($controller->getMimeTypeForFile($file)); ?>"><?php Template::escape($data); ?></textarea>
+            <textarea id="data" name="data" cols="20" rows= "80" class="codemirror" data-mimetype="<?php esc($controller->_getMimeTypeForFile($file)); ?>"><?php Template::escape($data); ?></textarea>
         </p>
         <p>
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php translate("save_changes"); ?></button>
