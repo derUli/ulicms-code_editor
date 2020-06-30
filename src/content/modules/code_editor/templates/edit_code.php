@@ -28,12 +28,6 @@ if ($controller->_canEditFile($file)) {
         <p>
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php translate("save_changes"); ?></button>
         </p>
-
-
-        <div class="inPageMessage">
-            <div id="msg_code_edit" class="inPageMessage"></div>
-            <img class="loading" src="gfx/loading.gif" alt="Wird gespeichert...">
-        </div>
         <?php
         echo ModuleHelper::endForm();
 
