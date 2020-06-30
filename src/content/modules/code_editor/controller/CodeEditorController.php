@@ -49,6 +49,11 @@ class CodeEditorController extends MainClass
             }
         }
 
+        $editableFiles = array_filter($editableFiles, function ($file) {
+            return !startsWith($file, "/content/cache") &&
+                    !startsWith($file, "/content/tmp");
+        });
+
         natcasesort($editableFiles);
         return $editableFiles;
     }
@@ -94,9 +99,9 @@ class CodeEditorController extends MainClass
             Response::sendHttpStatusCodeResultIfAjax(
                 HttpStatusCode::OK,
                 ModuleHelper::buildActionURL(
-                    "edit_code",
-                    "file=" . urlencode($file)
-                )
+                        "edit_code",
+                        "file=" . urlencode($file)
+                    )
             );
         }
         ExceptionResult(get_translation("forbidden"), HttpStatusCode::FORBIDDEN);
