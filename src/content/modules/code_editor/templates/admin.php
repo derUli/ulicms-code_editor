@@ -28,7 +28,7 @@ $_SESSION["editable_code_files"] = $files;
                         <?php Template::escape($file); ?></a></td>
                 <td><?php echo file_extension($file); ?></td>
                 <td><?php
-                    echo strftime("%x %X", filemtime($absPath)); ?></td>
+                    echo PHP81_BC\strftime("%x %X", filemtime($absPath)); ?></td>
                 <td style="text-align: right;"><?php echo round(filesize($absPath) / 1024, 2); ?> KB</td>
             </tr>
         <?php
